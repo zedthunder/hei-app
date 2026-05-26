@@ -9,9 +9,9 @@ export default defineConfig({
     VitePWA({
       registerType: 'autoUpdate', // Atualiza o app automaticamente quando você mudar o código
       manifest: {
-        name: 'Comunicação Alternativa CAA',
-        short_name: 'CAA Voz',
-        description: 'Aplicativo de Comunicação Alternativa e Aumentativa',
+      name: 'Hei-App - Comunicação Alternativa',
+      short_name: 'Hei-App', // Nome curto que vai para a tela inicial do aparelho
+      description: 'Aplicativo de Comunicação Alternativa e Aumentativa para o Heitor',
         theme_color: '#4CAF50', // Cor da barra de status do sistema
         background_color: '#ffffff', // Cor de fundo enquanto o app carrega
         display: 'standalone', // O SEGREDO: Faz o app rodar em TELA CHEIA, sem navegador!
