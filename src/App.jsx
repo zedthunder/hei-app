@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
-// 1. IMPORTANDO OS ÍCONES DA BIBLIOTECA
 import { 
-  Hand,   // Quero
+  Hand,          // Quero
   Smile,         // Estou / Feliz
   MapPin,        // Vamos
   XCircle,       // Não
@@ -18,47 +17,44 @@ import {
   Moon,          // Cansado / Dormir
   Home,          // Casa
   GraduationCap, // Escola
-  Compass        // Passear
+  
+  // NOVOS ÍCONES PARA OS NOVOS LUGARES:
+  Heart,         // Casa da Vovó / Vovô (Representando carinho/avós)
+  Church,        // Igreja
+  ShoppingCart,  // Mercado
+  Waves,         // Lago
+  Trees          // Parquinho
 } from 'lucide-react';
 
-// ==========================================
-// COMPONENTE FILHO: BOTÃO COM ÍCONE E TEXTO
-// ==========================================
-// Agora ele recebe a prop 'icone' além de texto e cor
 function BotaoCAA({ texto, cor, icone: IconeComponente, acao }) {
   return (
     <button
       onClick={acao}
       style={{
         display: 'flex',
-        flexDirection: 'column', // Empilha o ícone em cima e o texto embaixo
+        flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
-        gap: '10px',             // Espaço entre o ícone e o texto
-        padding: '15px',
-        fontSize: '20px',
+        gap: '8px',
+        padding: '10px',
+        fontSize: '18px', // Diminuímos um pouquinho a fonte para caber em 3 colunas
         fontWeight: 'bold',
         backgroundColor: cor,
         color: cor === '#FFEB3B' ? 'black' : 'white',
         border: 'none',
-        borderRadius: '20px',    // Bordas um pouco mais arredondadas e amigáveis
+        borderRadius: '20px',
         boxShadow: '0 5px 10px rgba(0,0,0,0.1)',
         cursor: 'pointer',
         width: '100%',
-        height: '130px'          // Aumentamos um pouquinho a altura para caber o ícone + texto
+        height: '120px' 
       }}
     >
-      {/* 2. RENDERIZANDO O ÍCONE DINAMICAMENTE */}
-      {IconeComponente && <IconeComponente size={40} strokeWidth={2.5} />}
-      
+      {IconeComponente && <IconeComponente size={38} strokeWidth={2.5} />}
       <span>{texto}</span>
     </button>
   );
 }
 
-// ==========================================
-// COMPONENTE PAI (App)
-// ==========================================
 export default function App() {
   const [frase, setFrase] = useState("");
   const [telaAtual, setTelaAtual] = useState("home");
@@ -73,12 +69,9 @@ export default function App() {
     return () => clearTimeout(cronometro);
   }, [frase]);
 
-  // ==========================================
-  // NOSSO BANCO DE DADOS ATUALIZADO COM ÍCONES
-  // ==========================================
   const dadosTelas = {
     home: [
-      { id: 1, texto: "Quero...", cor: "#4CAF50", tipo: "navegar", destino: "quero", icone: Hand},
+      { id: 1, texto: "Quero...", cor: "#4CAF50", tipo: "navegar", destino: "quero", icone: Hand },
       { id: 2, texto: "Estou...", cor: "#2196F3", tipo: "navegar", destino: "estou", icone: Smile },
       { id: 3, texto: "Vamos...", cor: "#9C27B0", tipo: "navegar", destino: "vamos", icone: MapPin },
       { id: 4, texto: "Não", cor: "#F44336", tipo: "falar", icone: XCircle },
@@ -100,12 +93,17 @@ export default function App() {
       { id: 304, texto: "Com Dor", cor: "#F44336", tipo: "falar", icone: Activity },
       { id: 305, texto: "Cansado", cor: "#9E9E9E", tipo: "falar", icone: Moon }
     ],
+    // ATUALIZADO: Nova lista expandida do "Vamos" com os novos lugares do Hei
     vamos: [
-      { id: 401, texto: "Casa", cor: "#9C27B0", tipo: "falar", icone: Home },
-      { id: 402, texto: "Escola", cor: "#9C27B0", tipo: "falar", icone: GraduationCap },
-      { id: 403, texto: "Passear", cor: "#9C27B0", tipo: "falar", icone: Compass },
-      { id: 404, texto: "Banho", cor: "#00BCD4", tipo: "falar", icone: ShowerHead },
-      { id: 405, texto: "Dormir", cor: "#3F51B5", tipo: "falar", icone: Moon }
+      { id: 401, texto: "Casa da Vovó", cor: "#9C27B0", tipo: "falar", icone: Heart },
+      { id: 402, texto: "Casa do Vovô", cor: "#9C27B0", tipo: "falar", icone: Heart },
+      { id: 403, texto: "Igreja", cor: "#9C27B0", tipo: "falar", icone: Church },
+      { id: 404, texto: "Mercado", cor: "#9C27B0", tipo: "falar", icone: ShoppingCart },
+      { id: 405, texto: "Lago", cor: "#9C27B0", tipo: "falar", icone: Waves },
+      { id: 406, texto: "Parquinho", cor: "#9C27B0", tipo: "falar", icone: Trees },
+      { id: 407, texto: "Escola", cor: "#9C27B0", tipo: "falar", icone: GraduationCap },
+      { id: 408, texto: "Banho", cor: "#00BCD4", tipo: "falar", icone: ShowerHead },
+      { id: 409, texto: "Dormir", cor: "#3F51B5", tipo: "falar", icone: Moon }
     ]
   };
 
@@ -138,7 +136,7 @@ export default function App() {
   };
 
   return (
-    <div style={{ padding: '20px', fontFamily: 'sans-serif', maxWidth: '600px', margin: '0 auto' }}>
+    <div style={{ padding: '15px', fontFamily: 'sans-serif', maxWidth: '700px', margin: '0 auto' }}>
       
       {/* BARRA DE FRASE */}
       <div style={{ 
@@ -164,14 +162,18 @@ export default function App() {
         </button>
       )}
 
-      {/* GRADE DE BOTÕES (CSS GRID) */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '15px' }}>
+      {/* GRADE DE BOTÕES DINÂMICA (MUDADA PARA 3 COLUNAS) */}
+      <div style={{ 
+        display: 'grid', 
+        gridTemplateColumns: 'repeat(3, 1fr)', // <--- A MÁGICA: Agora divide o espaço em 3 colunas iguais
+        gap: '12px' 
+      }}>
         {dadosTelas[telaAtual].map((botao) => (
           <BotaoCAA 
             key={botao.id} 
             texto={botao.texto} 
             cor={botao.cor} 
-            icone={botao.icone} // Passa o componente de ícone como Prop
+            icone={botao.icone} 
             acao={() => lidarComClique(botao)} 
           />
         ))}
